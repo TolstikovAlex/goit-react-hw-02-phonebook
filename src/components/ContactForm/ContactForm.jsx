@@ -2,14 +2,13 @@ import { Component } from 'react';
 
 class ContactForm extends Component {
   state = {
-    contacts: [],
     name: '',
     number: '',
   };
 
   HandleSubmit = e => {
     e.preventDefault();
-    this.reset();
+    this.Reset();
     // this.props.onSubmit(this.state);
   };
 
