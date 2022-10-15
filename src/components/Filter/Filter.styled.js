@@ -8,6 +8,7 @@ export const FilterLabel = styled.label`
   font-size: ${p => p.theme.fontSizes.xm};
   font-weight: ${p => p.theme.fontWeights.normal};
 `;
+
 export const FilterField = styled.input`
   height: 25px;
   margin-top: ${p => p.theme.space[2]}px;

@@ -3,7 +3,7 @@ import { ContactList } from 'components/ContactList/ContactList';
 import { ContactListItem } from 'components/ContactListItem/ContactactListItem';
 import { Filter } from 'components/Filter/Filter';
 import React, { Component } from 'react';
-import { FormWrapper } from './App.styled';
+import { FormTitle, FormSubtitle, FormWrapper } from './App.styled';
 
 class App extends Component {
   state = {
@@ -60,13 +60,13 @@ class App extends Component {
     const contacts = this.filteredContacts();
     return (
       <FormWrapper>
-        <h1>Phonebook</h1>
+        <FormTitle>Phonebook</FormTitle>
         <ContactForm
           contacts={this.state.contacts}
           onSubmit={this.addContact}
         />
 
-        <h2>Contacts</h2>
+        <FormSubtitle>Contacts</FormSubtitle>
         <Filter
           filter={this.filter}
           handleChange={this.handleChange}
