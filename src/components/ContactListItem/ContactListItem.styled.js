@@ -17,4 +17,7 @@ export const DeleteBtn = styled.button`
 export const ListItem = styled.li`
   font-size: ${p => p.theme.fontSizes.m};
   font-weight: ${p => p.theme.fontWeights.medium};
+  :not(:last-child) {
+    margin-bottom: ${p => p.theme.space[3]}px;
+  }
 `;
