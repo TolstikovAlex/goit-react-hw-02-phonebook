@@ -1,6 +1,9 @@
 import ContactForm from 'components/ContactForm/ContactForm';
 import { ContactList } from 'components/ContactList/ContactList';
+import { ContactListItem } from 'components/ContactListItem/ContactactListItem';
+import { Filter } from 'components/Filter/Filter';
 import React, { Component } from 'react';
+import { FormWrapper } from './App.styled';
 
 class App extends Component {
   state = {
@@ -13,49 +16,70 @@ class App extends Component {
     filter: '',
   };
 
-  makeFilterContacts = () => {
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  addContact = newContact => {
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
+  };
+
+  removeContact = id => {
+    this.setState(prevState => {
+      const newContacts = prevState.contacts.filter(
+        contact => contact.id !== id
+      );
+      return { contacts: newContacts };
+    });
+  };
+
+  filteredContacts = () => {
     const { contacts, filter } = this.state;
     if (!filter) {
       return contacts;
     }
-    const filterNormalize = filter.toLocaleLowerCase();
+    const normalizedFilter = filter.toLocaleLowerCase();
     const filtredContacts = contacts.filter(({ name }) =>
-      name.toLocaleLowerCase().includes(filterNormalize)
+      name.toLocaleLowerCase().includes(normalizedFilter)
     );
     return filtredContacts;
   };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  formSubmitHadler = data => {
-    console.log(data);
-  };
-
-  addContact = contact => {
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, contact],
-    }));
+  cleanFilter = () => {
+    this.setState({
+      filter: '',
+    });
   };
 
   render() {
+    const contacts = this.filteredContacts();
     return (
-      <div>
+      <FormWrapper>
         <h1>Phonebook</h1>
         <ContactForm
-          onSubmit={this.formSubmitHadler}
-          addContact={this.addContact}
-        />
-        <h2>Contacts</h2>
-        <ContactList
           contacts={this.state.contacts}
-          onChange={this.handleChange}
+          onSubmit={this.addContact}
         />
-      </div>
+
+        <h2>Contacts</h2>
+        <Filter
+          filter={this.filter}
+          handleChange={this.handleChange}
+          cleanFilter={this.cleanFilter}
+        />
+        <ContactList>
+          <ContactListItem
+            contacts={contacts}
+            removeContact={this.removeContact}
+          />
+        </ContactList>
+      </FormWrapper>
     );
   }
 }
-
 export default App;
