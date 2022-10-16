@@ -68,7 +68,7 @@ class App extends Component {
 
         <FormSubtitle>Contacts</FormSubtitle>
         <Filter
-          filter={this.filter}
+          filter={this.state.filter}
           handleChange={this.handleChange}
           cleanFilter={this.cleanFilter}
         />
